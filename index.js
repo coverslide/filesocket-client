@@ -18,14 +18,18 @@ function FileSocketClient(url){
   var sock = new WebSocket(url)
   var requests = {}
 
-  sock.addEventListener('message', messageHandler)
+  sock.onmessage = messageHandler
 
   sock.onerror = function(err){
     _this.emit('error', err)
   }
 
-  sock.onopen = function(){
-    _this.emit('connect', arguments)
+  sock.onopen = function(e){
+    _this.emit('connect', e)
+  }
+
+  sock.onclose = function(e){
+    _this.emit('disconnect', e)
   }
 
   _this.requestFile = function(path, cb){
