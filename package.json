@@ -1,0 +1,16 @@
+{
+  "name": "filesocket-client",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "msgpack-js": "git+https://github.com/coverslide/msgpack-js-browser",
+    "mkee": "0.0.0"
+  }
+}
