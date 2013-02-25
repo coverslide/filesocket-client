@@ -1,6 +1,6 @@
 'use strict'
 
-var msgpack = require('msgpack-js')
+var msgpack = require('msgpack-js-browser')
 
 require('mkee')(FileSocketClient)
 require('mkee')(FileSocketReadStream)
