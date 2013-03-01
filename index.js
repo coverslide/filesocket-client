@@ -15,7 +15,7 @@ function FileSocketClient(url, options){
   var _this = Object.create(FileSocketClient.prototype)
 
   if(!url) url = 'ws://' + window.location.host
-  var sock, requests = {}
+  var sock, requests = {}, cmdBuffer = []
 
   _this.requestFile = function(path, options, cb){
     if(typeof options == 'function'){
@@ -84,7 +84,11 @@ function FileSocketClient(url, options){
     }
 
     sock.onopen = function(e){
-      _this.emit('connect', e)
+      _this.emit('connect', e) //should this go before or after?
+      cmdBuffer.forEach(function(cmd){
+        sock.send(cmd)
+      })
+      cmdBuffer = []
     }
 
     sock.onclose = function(e){
@@ -94,11 +98,13 @@ function FileSocketClient(url, options){
     }
   }
   
-  //TODO: buffer commands when not connected
   function send(obj, cb){
     obj.id = genid()
     requests[obj.id] = obj
-    sock.send(msgpack.encode(obj))
+    if(sock.readyState == 1)
+      sock.send(msgpack.encode(obj))
+    else
+      cmdBuffer.push(msgpack.encode(obj))
     obj.cb = cb
   }
 }
