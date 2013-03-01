@@ -11,6 +11,7 @@
   "license": "BSD",
   "dependencies": {
     "msgpack-js-browser": "0.1.4",
-    "mkee": "0.0.0"
+    "mkee": "0.0.0",
+    "mkstream": "0.0.0"
   }
 }
