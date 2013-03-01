@@ -17,8 +17,12 @@ function FileSocketClient(url, options){
   if(!url) url = 'ws://' + window.location.host
   var sock, requests = {}
 
-  _this.requestFile = function(path, cb){
-    send({type:FILE, path:path}, cb)
+  _this.requestFile = function(path, options, cb){
+    if(typeof options == 'function'){
+      cb = options
+      options = null
+    }
+    send({type:FILE, path:path, options:options}, cb)
   }
 
   _this.requestDirectory = function(path, cb){
